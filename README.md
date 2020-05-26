@@ -13,6 +13,7 @@ String related functions:
 Memory management related functions:
 - swap items
 - swap a given amount of bytes between two memory addresses
+- copy pointer with different size
 
 Calendar related function:
 - get the day of the week with current day and delay
@@ -29,6 +30,5 @@ Matrix related functions and algebra:
 - initialize square matrix with constant value
 
 - print array
-- copy pointer with different size
 
 corresponding tests enabled using defines
