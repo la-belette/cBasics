@@ -39,7 +39,7 @@ int main(void)
     printf("                     STRING TEST                       \n");
     printf("*******************************************************\n\n");
 
-    printf("coucou has a length of %d.\n", mystrlen("coucou"));
+    printf("coucou has a length of %d.\n", sizeOfCharArray("coucou"));
 
     printf("Is kayak a plindrome? %d\n", isPalindrome("kayak"));
     printf("Is \"la mariee ira mal\" a palindrome? %d\n", isPalindrome("la mariee ira mal"));
@@ -84,18 +84,20 @@ int main(void)
     uint32_t ageBoby = 92;
 
     printf("intial state: #1 %s - #2 %s\n", juju, boby);
-    memswap(&juju, &boby, sizeOfCharTable(juju));
+    memswap(&juju, &boby, sizeOfCharArray(juju));
     printf("swap result: #1 %s - #2 %s\n", juju, boby);
 
     printf("initial state: juju %d - boby %d\n", ageJuju, ageBoby);
     memswap(&ageJuju, &ageBoby, sizeof(ageJuju));
     printf("swap result: juju %d - boby %d\n", ageJuju, ageBoby);
 
+    /*
     printf("initial state name: %s, age: %d\n", juju, ageJuju);
-    memswap(&juju, &ageJuju, sizeOfCharTable(juju));
+    memswap(&juju, &ageJuju, sizeOfCharArray(juju));
     uint32_t juju2 = (uint32_t)juju;
     char* age2 = &ageJuju;
     printf("swap result name: %s, age: %d\n", age2, juju2);
+    */
 
     int tabA[] = {0, 1, 2, 3, 4, 5, 6};
     int tabB[] = {6, 5, 4, 3, 2};
