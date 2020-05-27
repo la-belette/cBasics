@@ -92,13 +92,13 @@ int main(void)
     memswap(&ageJuju, &ageBoby, sizeof(ageJuju));
     printf("swap result: juju %d - boby %d\n", ageJuju, ageBoby);
 
-    /*
+/*
     printf("initial state name: %s, age: %d\n", juju, ageJuju);
     memswap(&juju, &ageJuju, sizeOfCharArray(juju));
     uint32_t juju2 = (uint32_t)juju;
     char* age2 = &ageJuju;
     printf("swap result name: %s, age: %d\n", age2, juju2);
-    */
+*/
 
     int arrayA[] = {0, 1, 2, 3, 4, 5, 6};
     int arrayB[] = {6, 5, 4, 3, 2};
@@ -114,12 +114,14 @@ int main(void)
     printArray(arrayB, 5);
 
     char* array = "Job done!";
-    char* copy = remalloc((void*)array, sizeOfCharArray(array), 20*sizeof(char));
-    printf("copy holds: %s\n", copy);
-    free(copy);
-    char* copycopy = remalloc((void*)array, sizeOfCharArray(array), 8*sizeof(char));
-    printf("copycopy holds: %s\n", copycopy);
-    free(copycopy);
+    printf("reference array holds: %s\n", array);
+    char* smallerCopy = remalloc((void*)array, sizeOfCharArray(array), 7*sizeof(char));
+    printf("smaller copy holds: %s\n", smallerCopy);
+    free(smallerCopy);
+
+    char* largerCopy = remalloc((void*)array, sizeOfCharArray(array)+1, 20*sizeof(char));
+    printf("larger copy holds: %s\n", largerCopy);
+    free(largerCopy);
 
     size_t ref_size = 7;
     int *ref = (uint8_t*)malloc(ref_size* sizeof(int));
@@ -129,20 +131,37 @@ int main(void)
     }
     printf("ref:\n");
     printArray(ref,7);
-    int* newArray = (int*)my_realloc((void*)ref, 5*sizeof(int), ref_size* sizeof(int));
-    printf("smaller alloc:\n");
-    printArray(newArray, 5);
-    int* newArray2 = (int*)my_realloc((void*)newArray, 10*sizeof(int), ref_size*sizeof(int));
+
+    int* largerArray = (int*)my_realloc((void*)ref, 10*sizeof(int), ref_size*sizeof(int));
     printf("larger alloc:\n");
-    printArray(newArray2, 10);
+    printArray(largerArray, 10);
 
-    newArray2 = my_memset(newArray2, 0, 5* sizeof(int));
-    printArray(newArray2, 10);
+    int* smallerArray = (int*)my_realloc((void*)largerArray, 5*sizeof(int), 10* sizeof(int));
+    printf("smaller alloc:\n");
+    printArray(smallerArray, 5);
 
-    newArray2 = my_memset(newArray2, 1, 10* sizeof(int));
-    printArray(newArray2, 10);
+    smallerArray = my_memset(smallerArray, 1, 5* sizeof(int));
+    printf("smaller array with all bytes at 1:\n");
+    printArray(smallerArray, 5);
 
-    free(newArray2);
+    smallerArray = my_memset(smallerArray, 0, 3* sizeof(int));
+    printf("smaller array with 3 first elements cleared:\n");
+    printArray(smallerArray, 5);
+
+    int*arrayCopy = (int*)malloc(5*sizeof(int));
+    arrayCopy = my_memcpy((void*)arrayCopy, smallerArray, 5*sizeof(int));
+    printf("copy of smaller array\n");
+    printArray(arrayCopy, 5);
+
+    int*arraySmallerCopy = (int*)malloc(4*sizeof(int));
+    arraySmallerCopy = my_memcpy((void*)arraySmallerCopy, smallerArray, 4*sizeof(int));
+    printf("smaller copy of smaller array\n");
+    printArray(arraySmallerCopy, 4);
+
+    free(smallerArray);
+    free(arrayCopy);
+    free(arraySmallerCopy);
+
 #endif
 
 #ifdef MATRIX_TEST

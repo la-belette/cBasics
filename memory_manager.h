@@ -50,4 +50,14 @@ void *my_realloc(void *ptr, size_t new_size, size_t old_size);
  */
 void *my_memset(void *s, int c, size_t n);
 
+/*
+ * memcpy copies n bytes from memcpy area src to memory area dest.
+ * The memory areas must not overlap.
+ * @param dest: pointer to memory area to copy to
+ * @param src: pointer to reference memory area
+ * @param n: number of bytes to copy from src to dest
+ * @return return a pointer to dest
+ */
+void *my_memcpy(void* dest, const void *src, size_t n);
+
 #endif //CBASICS_MEMORY_MANAGER_H

@@ -44,7 +44,7 @@ void *my_realloc(void *ptr, size_t new_size, size_t old_size)
 {
     int8_t *ref = ptr;
 
-    int8_t *new_pointer = (uint8_t *)malloc(new_size);
+    int8_t *new_pointer = (uint8_t *)calloc(1, new_size);
     if(NULL == new_pointer)
         return NULL;
 
@@ -67,4 +67,15 @@ void *my_memset(void *s, int c, size_t n)
         pointer[byte] = c;
     }
     return s;
+}
+
+void *my_memcpy(void* dest, const void *src, size_t n)
+{
+    uint8_t *final = dest;
+    uint8_t *origin = src;
+    for (int byte = 0; byte < n; byte++)
+    {
+        final[byte] = origin[byte];
+    }
+    return dest;
 }
