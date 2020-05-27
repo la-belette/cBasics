@@ -136,7 +136,13 @@ int main(void)
     printf("larger alloc:\n");
     printArray(newArray2, 10);
 
+    newArray2 = my_memset(newArray2, 0, 5* sizeof(int));
+    printArray(newArray2, 10);
 
+    newArray2 = my_memset(newArray2, 1, 10* sizeof(int));
+    printArray(newArray2, 10);
+
+    free(newArray2);
 #endif
 
 #ifdef MATRIX_TEST

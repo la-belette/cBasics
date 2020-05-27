@@ -58,3 +58,13 @@ void *my_realloc(void *ptr, size_t new_size, size_t old_size)
 
     return new_pointer;
 }
+
+void *my_memset(void *s, int c, size_t n)
+{
+    uint8_t *pointer = s;
+    for (int byte = 0; byte < n; byte++)
+    {
+        pointer[byte] = c;
+    }
+    return s;
+}

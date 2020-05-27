@@ -40,4 +40,14 @@ void *remalloc(void* p,
  */
 void *my_realloc(void *ptr, size_t new_size, size_t old_size);
 
+/*
+ * my_memset fills the first n bytes of the memory area pointed to by
+ * s with the constant c.
+ * @param s: pointer to memory area to fill with c
+ * @param c: byte constant to fill n first bytes with
+ * @param n: nb of bytes pointed to by s to fill with c
+ * @return pointer to s
+ */
+void *my_memset(void *s, int c, size_t n);
+
 #endif //CBASICS_MEMORY_MANAGER_H
