@@ -99,24 +99,35 @@ int main(void)
     printf("swap result name: %s, age: %d\n", age2, juju2);
     */
 
-    int tabA[] = {0, 1, 2, 3, 4, 5, 6};
-    int tabB[] = {6, 5, 4, 3, 2};
+    int arrayA[] = {0, 1, 2, 3, 4, 5, 6};
+    int arrayB[] = {6, 5, 4, 3, 2};
 
     printf("initial state:\n");
-    printArray(tabA, 7);
-    printArray(tabB, 5);
+    printArray(arrayA, 7);
+    printArray(arrayB, 5);
 
-    memswap(tabA, tabB, 3);
+    memswap(arrayA, arrayB, 3);
 
     printf("partial swap result:\n");
-    printArray(tabA, 7);
-    printArray(tabB, 5);
+    printArray(arrayA, 7);
+    printArray(arrayB, 5);
 
     char* array = "Job done!";
     char* copy = remalloc((void*)array, 10, 20);
     printf("copy holds: %s\n", copy);
     char* copycopy = remalloc((void*)array, 10, 8);
     printf("copycopy holds: %s\n", copycopy);
+
+    printf("initial state arrayA:\n");
+    printArray(arrayA,7);
+    void* newArray = my_realloc((void*)arrayA, 5*sizeof(int), 7*sizeof(int));
+    printf("smaller alloc:\n");
+    printArray((int*)newArray, 7);
+    void* newArray2 = my_realloc((void*)arrayA, 10*sizeof(int), 7*sizeof(int));
+    printf("larger alloc:\n");
+    printArray((int*)newArray2, 10);
+
+
 #endif
 
 #ifdef MATRIX_TEST

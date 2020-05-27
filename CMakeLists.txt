@@ -1,6 +1,18 @@
 cmake_minimum_required(VERSION 3.14)
-project(cBasics)
+project(cBasics C)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
-add_executable(cBasics matrix_helper.c main.c matrix_helper.h string_helper.h string_helper.c common.h memory_manager.c memory_manager.h calendar_helper.c calendar_helper.h)
+include_directories(.)
+
+add_executable(cBasics
+        calendar_helper.c
+        calendar_helper.h
+        common.h
+        main.c
+        matrix_helper.c
+        matrix_helper.h
+        memory_manager.c
+        memory_manager.h
+        string_helper.c
+        string_helper.h)

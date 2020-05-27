@@ -38,3 +38,20 @@ void *remalloc(void* p,
     }
     return newPointer;
 }
+
+void *my_realloc(void *ptr, size_t new_size, size_t old_size)
+{
+    int8_t *ref = ptr;
+
+    int8_t *new_pointer = (uint8_t *)malloc(new_size);
+    if(NULL == new_pointer)
+        return NULL;
+
+    size_t transfer_size = old_size < new_size ? old_size : new_size;
+    for (int i = 0; i < transfer_size; i++)
+    {
+        *(new_pointer+i) = *(ref+i);
+    }
+
+    return new_pointer;
+}

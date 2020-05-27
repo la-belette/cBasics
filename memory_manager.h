@@ -1,6 +1,8 @@
 #ifndef CBASICS_MEMORY_MANAGER_H
 #define CBASICS_MEMORY_MANAGER_H
 
+#include "common.h"
+
 /*
  * swap swaps content between two integer pointers.
  * @param a: first pointer to swap with b
@@ -29,5 +31,13 @@ void memswap(void *a,
 void *remalloc(void* p,
                unsigned int s,
                unsigned int ns);
+
+/*
+ * realloc resizes allocated memory without losing old data.
+ * @param ptr: pointer to current block of byte
+ * @param newsize: new size of block of bytes
+ * @return pointer to new block of byte
+ */
+void *my_realloc(void *ptr, size_t new_size, size_t old_size);
 
 #endif //CBASICS_MEMORY_MANAGER_H
