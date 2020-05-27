@@ -7,7 +7,7 @@
  * @param array: target char array to get the size from
  * @return number of characters in array excluding \0.
  */
-int sizeOfCharArray(char* table);
+int sizeOfCharArray(const char* table);
 
 /*
  * plop
@@ -51,6 +51,6 @@ int raiseit(char *s);
  * @param length: length of character array to check
  * @return the number of letters in odd number in given string length
  */
-int numberOfOddLetter (char* string, int length);
+int numberOfOddLetter (const char* string, int length);
 
 #endif //CBASICS_STRING_HELPER_H
