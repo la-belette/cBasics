@@ -34,7 +34,7 @@ void *remalloc(void* p,
 
 /*
  * realloc resizes allocated memory without losing old data.
- * @param ptr: pointer to current block of byte
+ * @param ptr: pointer to current block of byte must have been allocated with malloc
  * @param newsize: new size of block of bytes
  * @return pointer to new block of byte
  */

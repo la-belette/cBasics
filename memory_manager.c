@@ -23,6 +23,7 @@ void memswap(void *a,
         A[i] = B[i];
         B[i] = temp[i];
     }
+    free(temp);
 }
 
 void *remalloc(void* p,
@@ -52,6 +53,8 @@ void *my_realloc(void *ptr, size_t new_size, size_t old_size)
     {
         *(new_pointer+i) = *(ref+i);
     }
+
+    free(ptr);
 
     return new_pointer;
 }

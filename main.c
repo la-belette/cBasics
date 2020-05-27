@@ -53,6 +53,7 @@ int main(void)
 
     int verif = raiseit(string);
     printf("%s already contained %d capital letter(s) & becomes %s once reversed & raised.\n", str, verif, string);
+    free(string);
 #endif
 
 #ifdef CALENDAR_TEST
@@ -106,26 +107,34 @@ int main(void)
     printArray(arrayA, 7);
     printArray(arrayB, 5);
 
-    memswap(arrayA, arrayB, 3);
+    memswap(arrayA, arrayB, 3*sizeof(int));
 
     printf("partial swap result:\n");
     printArray(arrayA, 7);
     printArray(arrayB, 5);
 
     char* array = "Job done!";
-    char* copy = remalloc((void*)array, 10, 20);
+    char* copy = remalloc((void*)array, sizeOfCharArray(array), 20*sizeof(char));
     printf("copy holds: %s\n", copy);
-    char* copycopy = remalloc((void*)array, 10, 8);
+    free(copy);
+    char* copycopy = remalloc((void*)array, sizeOfCharArray(array), 8*sizeof(char));
     printf("copycopy holds: %s\n", copycopy);
+    free(copycopy);
 
-    printf("initial state arrayA:\n");
-    printArray(arrayA,7);
-    void* newArray = my_realloc((void*)arrayA, 5*sizeof(int), 7*sizeof(int));
+    size_t ref_size = 7;
+    int *ref = (uint8_t*)malloc(ref_size* sizeof(int));
+    for (int i = 0; i < ref_size; i++)
+    {
+        ref[i] = 2*i;
+    }
+    printf("ref:\n");
+    printArray(ref,7);
+    int* newArray = (int*)my_realloc((void*)ref, 5*sizeof(int), ref_size* sizeof(int));
     printf("smaller alloc:\n");
-    printArray((int*)newArray, 7);
-    void* newArray2 = my_realloc((void*)arrayA, 10*sizeof(int), 7*sizeof(int));
+    printArray(newArray, 5);
+    int* newArray2 = (int*)my_realloc((void*)newArray, 10*sizeof(int), ref_size*sizeof(int));
     printf("larger alloc:\n");
-    printArray((int*)newArray2, 10);
+    printArray(newArray2, 10);
 
 
 #endif
@@ -165,6 +174,10 @@ int main(void)
     printf("matC = matB - matA:\n");
     printMat(matC, MAT_HEIGHT, MAT_WIDTH);
 
+    matfree(matA, MAT_HEIGHT);
+    matfree(matB, MAT_HEIGHT);
+    matfree(matC, MAT_HEIGHT);
+
     int **matD;
     initMat(&matD, MAT_HEIGHT, MAT_COMMON);
     fillMat(&matD, MAT_HEIGHT, MAT_COMMON);
@@ -188,11 +201,15 @@ int main(void)
     printf("matD * 2:\n");
     printMat(matR, MAT_HEIGHT, MAT_COMMON);
 
+    matfree(matD, MAT_HEIGHT);
+    matfree(matE, MAT_COMMON);
+    matfree(matR, MAT_HEIGHT);
+
     int **matT = matalloc(MAT_COMMON, 6);
     printf("Test allocating square matrix filled with constant:\n");
     printMat(matT, MAT_COMMON, MAT_COMMON);
 
-    matfree(matT, 4);
+    matfree(matT, MAT_COMMON);
 #endif
 
     return (0);
