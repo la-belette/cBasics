@@ -3,7 +3,7 @@
 
 #define MAX_DIFF_CHAR 26
 
-int sizeOfCharArray(const char* array)
+int size_char_array(const char *array)
 {
     int size = 0;
     while(array[size] != '\0')
@@ -13,10 +13,10 @@ int sizeOfCharArray(const char* array)
     return size;
 }
 
-int isPalindrome(const char *s)
+int is_palindrome(const char *s)
 {
     char *a = s;
-    char *b = s + sizeOfCharArray(s);
+    char *b = s + size_char_array(s);
     while((a != b) && (a < b))
     {
         if ((*a < 'A')
@@ -43,10 +43,10 @@ int isPalindrome(const char *s)
     return 0;
 }
 
-int isPalindromePermutation(const char *s)
+int is_palindrome_permutation(const char *s)
 {
     char c;
-    int stringSize = sizeOfCharArray(s);
+    int stringSize = size_char_array(s);
 
     int array[MAX_DIFF_CHAR] = {0};
     for (int i = 0; i < stringSize; i++)
@@ -80,7 +80,7 @@ int isPalindromePermutation(const char *s)
 char *reverse(char *s)
 {
     char *result = (char*)malloc(30* sizeof(char));
-    int size = sizeOfCharArray(s);
+    int size = size_char_array(s);
     for (int i = 0; i < size; i++)
     {
         result[i] = *(s + size - i - 1);
@@ -89,23 +89,28 @@ char *reverse(char *s)
     return result;
 }
 
-int raiseit(char *s)
+int raise_it(char *s)
 {
-    size_t charLength = sizeOfCharArray(s);
-    char c = 0;
+    size_t charLength = size_char_array(s);
+    /*
+    char *ref = (char*)malloc(charLength);
+    ref = my_memcpy(ref, s, charLength);
+     */
     int majCount = 0;
+    char capital_offset = 'a' - 'A';
     for (int i = 0; i < charLength; i ++)
     {
-        c = *(s + i);
-        if ((c <= 'z') && (c >= 'a'))
-            *(s + i) -= 'a' - 'A';
-        else if ((c <= 'Z') && (c >= 'A'))
+        if ((s[i] <= 'z') && (s[i] >= 'a'))
+        {
+            s[i] -= capital_offset;
+        }
+        else if ((s[i] <= 'Z') && (s[i] >= 'A'))
             majCount ++;
     }
     return majCount;
 }
 
-int numberOfOddLetter (const char* string, int length)
+int nb_odd_letter(const char *string, int length)
 {
     int charMem[MAX_DIFF_CHAR] = {0};
     int c = 0;

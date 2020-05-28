@@ -1,6 +1,8 @@
 #ifndef CBASICS_MEMORY_MANAGER_H
 #define CBASICS_MEMORY_MANAGER_H
 
+#include "common.h"
+
 /*
  * swap swaps content between two integer pointers.
  * @param a: first pointer to swap with b
@@ -29,5 +31,62 @@ void memswap(void *a,
 void *remalloc(void* p,
                unsigned int s,
                unsigned int ns);
+
+/*
+ * realloc resizes allocated memory without losing old data.
+ * @param ptr: pointer to current block of byte must have been allocated with malloc
+ * @param newsize: new size of block of bytes
+ * @return pointer to new block of byte
+ */
+void *my_realloc(void *ptr, size_t new_size, size_t old_size);
+
+/*
+ * my_memset fills the first n bytes of the memory area pointed to by
+ * s with the constant c.
+ * @param s: pointer to memory area to fill with c
+ * @param c: byte constant to fill n first bytes with
+ * @param n: nb of bytes pointed to by s to fill with c
+ * @return pointer to s
+ */
+void *my_memset(void *s, int c, size_t n);
+
+/*
+ * memcpy copies n bytes from memcpy area src to memory area dest.
+ * The memory areas must not overlap.
+ * @param dest: pointer to memory area to copy to
+ * @param src: pointer to reference memory area
+ * @param n: number of bytes to copy from src to dest
+ * @return return a pointer to dest
+ */
+void *my_memcpy(void* dest, const void *src, size_t n);
+
+/*
+ * memcmp compares n bytes from memory area a with memory area b.
+ * @param a: pointer to memory area to compare with b
+ * @param b: pointer to memory area to compare with a
+ * @param n: number of bytes to compare between a and b
+ * @return return 0 if equal, else -1
+ */
+int memcmp(const void* a, const void *b, size_t n);
+
+/*
+ * memmove copies n bytes from memory area src to memory area dest.
+ * The memory areas may overlap: copying takes place as though the
+ * bytes in src are first copied into a temporary array that does not
+ * overlap src or dest, and the bytes are then copied from the
+ * temporary array to dest.
+ * @param dest: pointer to copy destination memory area
+ * @param src: pointer to copy source memory area
+ * @param n: memory size to copy in bytes
+ * @return a pointer to dest
+ */
+void *my_memmove(void *dest, const void *src, size_t n);
+
+/*
+ * memdump prints the n first bytes of  memory area starting at s
+ * @param s: pointer to memory to print
+ * @param n: size of memory area to print in bytes
+ */
+void my_memdump(const void *s, size_t n);
 
 #endif //CBASICS_MEMORY_MANAGER_H
