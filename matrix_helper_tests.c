@@ -138,20 +138,11 @@ int test_matrix_helper()
 {
     int err = 0;
 
-    if (0 != test_matadd())
-        err = -1;
-
-    if (0 != test_matsub())
-        err = -1;
-
-    if (0 != test_matmul())
-        err = -1;
-
-    if (0 != test_matscalmul())
-        err = -1;
-
-    if (0 != test_matalloc())
-        err = -1;
+    err += test_matadd();
+    err += test_matsub();
+    err += test_matmul();
+    err += test_matscalmul();
+    err += test_matalloc();
 
     return err;
 }

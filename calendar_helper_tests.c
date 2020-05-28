@@ -73,7 +73,6 @@ int test_get_week_day()
 int test_calendar_helper()
 {
     int err = 0;
-    if (0 != test_get_week_day())
-        err = -1;
+    err += test_get_week_day();
     return err;
 }

@@ -162,20 +162,12 @@ int test_nb_odd_letter()
 int test_string_helper()
 {
     int err = 0;
-    if (0 != test_size_char_array())
-        err = -1;
 
-    if (0 != test_is_palindrome())
-        err = -1;
-
-    if (0 != test_reverse())
-        err = -1;
-
-    if (0 != test_raise_it())
-        err = -1;
-
-    if (0 != test_nb_odd_letter())
-        err  = -1;
+    err += test_size_char_array();
+    err += test_is_palindrome();
+    err += test_reverse();
+    err += test_raise_it();
+    err += test_nb_odd_letter();
 
     return err;
 }

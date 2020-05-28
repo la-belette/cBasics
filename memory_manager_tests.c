@@ -230,27 +230,40 @@ int test_swap()
     return err;
 }
 
+int test_my_memmove()
+{
+    int err = 0;
+
+    size_t array_size = 7;
+    int *array = (int *)malloc(array_size*sizeof(int));
+    for (int element = 0; element < array_size; element++)
+    {
+        array[element] = element;
+    }
+    int ref[] = {3, 4, 5, 6, 4, 5, 6};
+    array = my_memmove(array, array+3, 4* sizeof(int));
+    if (0 != memcmp(array, ref, array_size* sizeof(int)))
+    {
+        printf("fail in %s:\n", __func__);
+        print_int_array(array, array_size);
+        printf("instead of expected \n");
+        print_int_array(ref, array_size);
+        err = -1;
+    }
+    return err;
+}
+
 int test_memory_management()
 {
     int err = 0;
 
-    if (0 != test_swap())
-        err = -1;
-
-    if (0 != test_memswap())
-        err = -1;
-
-    if (0 != test_remalloc())
-        err = -1;
-
-    if (0 != test_my_realloc())
-        err = -1;
-
-    if(0 != test_my_memset())
-        err = -1;
-
-    if (0 != test_my_memcpy())
-        err = -1;
+    err += test_swap();
+    err += test_memswap();
+    err += test_remalloc();
+    err += test_my_realloc();
+    err += test_my_memset();
+    err += test_my_memcpy();
+    err += test_my_memmove();
 
     return err;
 }

@@ -69,4 +69,17 @@ void *my_memcpy(void* dest, const void *src, size_t n);
  */
 int memcmp(const void* a, const void *b, size_t n);
 
+/*
+ * memmove copies n bytes from memory area src to memory area dest.
+ * The memory areas may overlap: copying takes place as though the
+ * bytes in src are first copied into a temporary array that does not
+ * overlap src or dest, and the bytes are then copied from the
+ * temporary array to dest.
+ * @param dest: pointer to copy destination memory area
+ * @param src: pointer to copy source memory area
+ * @param n: memory size to copy in bytes
+ * @return a pointer to dest
+ */
+void *my_memmove(void *dest, const void *src, size_t n);
+
 #endif //CBASICS_MEMORY_MANAGER_H

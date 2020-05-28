@@ -96,3 +96,12 @@ int memcmp(const void* a, const void *b, size_t n)
     }
     return result;
 }
+
+void *my_memmove(void *dest, const void *src, size_t n)
+{
+    uint8_t *temp = (uint8_t*)malloc(n);
+    temp = my_memcpy(temp, src, n);
+    dest = my_memcpy(dest, temp, n);
+    free(temp);
+    return dest;
+}

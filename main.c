@@ -33,23 +33,23 @@ int main(void)
         printf("fail\n");
 #endif
 
-#ifdef MEMORY_MGT_TEST
-    printf("\n*******************************************************\n");
-    printf("                MEMORY MANAGEMENT TEST                 \n");
-    printf("*******************************************************\n\n");
-
-    if (0 == test_memory_management())
-        printf("success\n");
-    else
-        printf("fail\n");
-#endif
-
 #ifdef MATRIX_TEST
     printf("\n*******************************************************\n");
     printf("                     MATRIX TEST                       \n");
     printf("*******************************************************\n\n");
 
     if (0 == test_matrix_helper())
+        printf("success\n");
+    else
+        printf("fail\n");
+#endif
+
+#ifdef MEMORY_MGT_TEST
+    printf("\n*******************************************************\n");
+    printf("                MEMORY MANAGEMENT TEST                 \n");
+    printf("*******************************************************\n\n");
+
+    if (0 == test_memory_management())
         printf("success\n");
     else
         printf("fail\n");
