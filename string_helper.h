@@ -1,13 +1,15 @@
 #ifndef CBASICS_STRING_HELPER_H
 #define CBASICS_STRING_HELPER_H
 
+#include "common.h"
+
 /*
- * size_char_array gives the number of character(s) in a character
+ * my_strlen gives the number of character(s) in a character
  * array excluding \0.
  * @param array: target char array to get the size from
  * @return number of characters in array excluding \0.
  */
-int size_char_array(const char *table);
+int my_strlen(const char *s);
 
 /*
  * is_palindrome checks if the given character array is a palindrome.
@@ -40,6 +42,18 @@ char *reverse(char *s);
 int raise_it(char *s);
 
 /*
+ * my_strupcase raises the letters if given character array
+ * @param s: character array to raise
+ */
+void my_strupcase(char *s);
+
+/*
+ * my_strlowcase lowers the letters if given character array
+ * @param s: character array to raise
+ */
+void my_strlowcase(char *s);
+
+/*
  * nb_odd_letter gives the number of odd letters in a given
  * character array.
  * @param string: target character array to check
@@ -47,5 +61,43 @@ int raise_it(char *s);
  * @return the number of letters in odd number in given string length
  */
 int nb_odd_letter(const char *string, int length);
+
+/*
+ * my_strcpy copies the string pointed to by src to the buffer
+ * pointed to by dest. src and dest must not overlap. dest must be
+ * large enough to receive the copy.
+ * @param src: string to copy
+ * @param dest: buffer to copy to
+ * @return a pointer to dest
+ */
+char* my_strcpy(char *dest, const char *src);
+
+/*
+ * my_strncpy copies the n first bytes of the string pointed to by
+ * src to the buffer pointed to by dest. src and dest must not
+ * overlap. dest must be large enough to receive the copy.
+ * @param src: string to copy
+ * @param dest: buffer to copy to
+ * @param n: maximum size of copy in bytes
+ * @return a pointer to dest
+ */
+char* my_strncpy(char *dest, const char *src, size_t n);
+
+/*
+ * my_strcmp compares strings s1 and s2.
+ * @param s1: string to compare with s2
+ * @param s2: string to compare with s1
+ * @return 0 if s1 contains the same string as s2,
+ * -1 if s1 is < s2,
+ * 1 id s1 > s2
+ */
+int my_strcmp(const char *s1, const char* s2);
+
+/*
+ * my_strdup gives a duplicate of s.
+ * @param s: the reference string to duplicate
+ * @return a pointer to the duplicate
+ */
+char *my_strdup(const char *s);
 
 #endif //CBASICS_STRING_HELPER_H

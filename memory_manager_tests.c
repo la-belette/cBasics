@@ -17,7 +17,7 @@ int test_memswap()
 
     char* expected_juju = "boby";
     char* expected_boby = "juj";
-    memswap(&juju, &boby, size_char_array(juju));
+    memswap(&juju, &boby, my_strlen(juju));
     if ((0 != strcmp(juju, expected_juju)) || (0 != strcmp(boby, expected_boby)))
     {
         printf("fail in %s: swap result: #1 %s - #2 %s instead of expected #1 %s - #2 %s\n", __func__, juju, boby, expected_juju, expected_boby);
@@ -60,7 +60,7 @@ int test_remalloc()
 
     char *array = "Job done!";
     char *expected_smallCopy = "Job don";
-    char* smallerCopy = remalloc((void*)array, size_char_array(array), 7*sizeof(char));
+    char* smallerCopy = remalloc((void*)array, my_strlen(array), 7*sizeof(char));
     if (0 != strcmp(smallerCopy, expected_smallCopy))
     {
         printf("fail in %s: smaller copy holds: %s instead of expected %s\n",
@@ -71,7 +71,7 @@ int test_remalloc()
     free(smallerCopy);
 
     char *expected_largeCopy = "Job done!";
-    char* largerCopy = remalloc((void*)array, size_char_array(array)+1, 20*sizeof(char));
+    char* largerCopy = remalloc((void*)array, my_strlen(array)+1, 20*sizeof(char));
     if (0 != strcmp(largerCopy, expected_largeCopy))
     {
         printf("fail in %s: larger copy holds: %s instead of expected %s\n",

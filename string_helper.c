@@ -1,12 +1,11 @@
 #include "string_helper.h"
-#include "common.h"
 
 #define MAX_DIFF_CHAR 26
 
-int size_char_array(const char *array)
+int my_strlen(const char *s)
 {
     int size = 0;
-    while(array[size] != '\0')
+    while(s[size] != '\0')
     {
         size++;
     }
@@ -16,7 +15,7 @@ int size_char_array(const char *array)
 int is_palindrome(const char *s)
 {
     char *a = s;
-    char *b = s + size_char_array(s);
+    char *b = s + my_strlen(s);
     while((a != b) && (a < b))
     {
         if ((*a < 'A')
@@ -46,7 +45,7 @@ int is_palindrome(const char *s)
 int is_palindrome_permutation(const char *s)
 {
     char c;
-    int stringSize = size_char_array(s);
+    int stringSize = my_strlen(s);
 
     int array[MAX_DIFF_CHAR] = {0};
     for (int i = 0; i < stringSize; i++)
@@ -80,7 +79,7 @@ int is_palindrome_permutation(const char *s)
 char *reverse(char *s)
 {
     char *result = (char*)malloc(30* sizeof(char));
-    int size = size_char_array(s);
+    int size = my_strlen(s);
     for (int i = 0; i < size; i++)
     {
         result[i] = *(s + size - i - 1);
@@ -91,7 +90,7 @@ char *reverse(char *s)
 
 int raise_it(char *s)
 {
-    size_t charLength = size_char_array(s);
+    size_t charLength = my_strlen(s);
     /*
     char *ref = (char*)malloc(charLength);
     ref = my_memcpy(ref, s, charLength);
@@ -108,6 +107,85 @@ int raise_it(char *s)
             majCount ++;
     }
     return majCount;
+}
+
+void my_strupcase(char *s)
+{
+    size_t charLength = my_strlen(s);
+    char capital_offset = 'a' - 'A';
+    for (int i = 0; i < charLength; i ++)
+    {
+        if ((s[i] <= 'z') && (s[i] >= 'a'))
+        {
+            s[i] -= capital_offset;
+        }
+    }
+}
+
+void my_strlowcase(char *s)
+{
+    size_t charLength = my_strlen(s);
+    char capital_offset = 'a' - 'A';
+    for (int i = 0; i < charLength; i ++)
+    {
+        if ((s[i] <= 'Z') && (s[i] >= 'A'))
+        {
+            s[i] += capital_offset;
+        }
+    }
+}
+
+char* my_strcpy(char *dest, const char *src)
+{
+    char character = 0;
+    while (src[character] != '\0')
+    {
+        dest[character] = src[character];
+        character++;
+    }
+    dest[character] = src[character];
+    return dest;
+}
+
+int my_strcmp(const char *s1, const char* s2)
+{
+    char character = 0;
+    int diff = 0;
+    while((s1[character] != '\0') && (s2[character] != '\0'))
+    {
+        diff = s1[character]- s2[character];
+        if (0 != diff)
+        {
+            return diff;
+        }
+        character++;
+    }
+    diff = s1[character]- s2[character];
+    return diff;
+}
+
+char *my_strdup(const char *s)
+{
+    int size = my_strlen(s);
+    char *duplicate = (char *)malloc(size* sizeof(char));
+    for (int character = 0; character < size; character++)
+    {
+        duplicate[character] = s[character];
+    }
+    duplicate[size] = '\0';
+    return duplicate;
+}
+
+char* my_strncpy(char *dest, const char *src, size_t n)
+{
+    char character = 0;
+    while ((src[character] != '\0') && (character < n))
+    {
+        dest[character] = src[character];
+        character++;
+    }
+    dest[character] = src[character];
+    return dest;
 }
 
 int nb_odd_letter(const char *string, int length)
