@@ -2,68 +2,180 @@
 #include "string_helper.h"
 #include "common.h"
 
+#include <string.h>
+
 int test_size_char_array()
 {
-    printf("coucou has a length of %d.\n", size_char_array("coucou"));
-    return 0;
+    int err = 0;
+    char* input = "coucou";
+    int expected_result = 6;
+    int result = size_char_array(input);
+    if (expected_result != result)
+    {
+        printf("error in %s: %s has a length of %d instead of expected %d.\n", __func__, input, result, expected_result);
+        err = -1;
+    }
+
+    return err;
 }
 
 int test_is_palindrome()
 {
-    printf("Is kayak a plindrome? %d\n", is_palindrome("kayak"));
-    printf("Is \"la mariee ira mal\" a palindrome? %d\n", is_palindrome("la mariee ira mal"));
-    printf("Is toto a palindrome permutation? %d\n", is_palindrome_permutation("toto"));
-    printf("Is tatie a palindrome permutation? %d\n", is_palindrome_permutation("tatie"));
-    return 0;
+    int err = 0;
+    char* input = "kayak";
+    int expected_result = 0;
+    int result = is_palindrome(input);
+    if (expected_result != result)
+    {
+        printf("error in %s: Is %s a palindrome? returns %d instead of expected %d.\n", __func__, input, result, expected_result);
+        err = -1;
+    }
+
+    char *input2 = "Murder for a jar of red rum";
+    result = is_palindrome(input2);
+    if (expected_result != result)
+    {
+        printf("error in %s: Is %s a palindrome? returns %d instead of expected %d.\n", __func__, input2, result, expected_result);
+        err = -1;
+    }
+
+    char *input3 = "test";
+    expected_result = -1;
+    result = is_palindrome(input3);
+    if (expected_result != result)
+    {
+        printf("error in %s: Is %s a palindrome? returns %d instead of expected %d.\n", __func__, input3, result, expected_result);
+        err = -1;
+    }
+
+    return err;
+}
+
+int test_is_palindrome_permutation()
+{
+    int err = 0;
+    char* input = "toto";
+    int expected_result = 0;
+    int result = is_palindrome_permutation(input);
+    if (expected_result != result)
+    {
+        printf("error in %s: Is %s a palindrome permutation? returns %d instead of expected %d.\n", __func__, input, result, expected_result);
+        err = -1;
+    }
+
+    char *input2 = "tatie";
+    expected_result = -1;
+    result = is_palindrome_permutation(input);
+    if (expected_result != result)
+    {
+        printf("error in %s: Is %s a palindrome permutation? returns %d instead of expected %d.\n", __func__, input2, result, expected_result);
+        err = -1;
+    }
+
+    return err;
 }
 
 int test_reverse()
 {
-    char *str = "Hihihi!";
-    char *string = reverse(str);
-    printf("%s reversed becomes %s.\n", str, string);
-    free(string);
-    return 0;
+    int err = 0;
+    char* input = "Hihihi";
+    char* expected_result = "ihihiH";
+    char *result = reverse(input);
+    if (0 != strcmp(expected_result, result))
+    {
+        printf("error in %s: %s reversed becomes %s instead of %s.\n", __func__, input, result, expected_result);
+        err = -1;
+    }
+    free(result);
+
+    return err;
 }
 
 int test_raise_it()
 {
+    int err = 0;
+    char input[] = {'H', 'o', ' ', 'H', 'o', ' ', 'H', 'o', '.', '.', '.', '\0'};
+    char* expected_output = "HO HO HO...";
+    int expected_result = 3;
+    int result = raise_it(input);
+    if ((expected_result != result) || (0 != strcmp(expected_output, input)))
+    {
+        printf("error in %s: %s already contained %d capital letter(s) & becomes %s once raised instead of %d capital letter(s) and becoming %s.\n", __func__, input, result, expected_output, expected_result);
+        err = -1;
+    }
 
-    char string[] = {'H', 'o', ' ', 'H', 'o', ' ', 'H', 'o', '.', '.', '.', '\0'};
-    printf("%s", string);
-    int verif = raise_it(string);
-    printf(" already contained %d capital letter(s) & becomes %s once raised.\n", verif, string);
-
-    return 0;
+    return err;
 }
 
 int test_nb_odd_letter()
 {
-    printf("There is/are %d odd letter(s) in kayak\n", nb_odd_letter("kayak", 5));
-    printf("There is/are %d odd letter(s) in turlututu\n", nb_odd_letter("turlututu", 9));
-    printf("There is/are %d odd letter(s) in toto\n", nb_odd_letter("toto", 4));
-    printf("There is/are %d odd letter(s) in ?!./\n", nb_odd_letter("?!./", 4));
-    printf("There is/are %d odd letter(s) in _\n", nb_odd_letter("", 0));
-    return 0;
+    int err = 0;
+
+    char *input = "kayak";
+    int expected_result = 1;
+    int result = nb_odd_letter(input, size_char_array(input));
+    if (expected_result != result)
+    {
+        printf("error in %s: There is/are %d instead of expected %d odd letter(s) in %s\n", __func__,result,  input, expected_result);
+        err = -1;
+    }
+
+    char *input2 = "turlututu";
+    expected_result = 3;
+    result = nb_odd_letter(input2, size_char_array(input2));
+    if (expected_result != result)
+    {
+        printf("error in %s: There is/are %d instead of expected %d odd letter(s) in %s\n", __func__,result,  input2, expected_result);
+        err = -1;
+    }
+
+    char *input3 = "toto";
+    expected_result = 0;
+    result = nb_odd_letter(input3, size_char_array(input3));
+    if (expected_result != result)
+    {
+        printf("error in %s: There is/are %d instead of expected %d odd letter(s) in %s\n", __func__,result,  input3, expected_result);
+        err = -1;
+    }
+
+    char *input4 = "?!./";
+    expected_result = 0;
+    result = nb_odd_letter(input4, size_char_array(input4));
+    if (expected_result != result)
+    {
+        printf("error in %s: There is/are %d instead of expected %d odd letter(s) in %s\n", __func__,result,  input4, expected_result);
+        err = -1;
+    }
+
+    char *input5 = "";
+    expected_result = 0;
+    result = nb_odd_letter(input5, size_char_array(input5));
+    if (expected_result != result)
+    {
+        printf("error in %s: There is/are %d instead of expected %d odd letter(s) in %s\n", __func__,result,  input5, expected_result);
+        err = -1;
+    }
+
+    return err;
 }
 
 int test_string_helper()
 {
-    int result = 0;
+    int err = 0;
     if (0 != test_size_char_array())
-        result = -1;
+        err = -1;
 
     if (0 != test_is_palindrome())
-        result = -1;
+        err = -1;
 
     if (0 != test_reverse())
-        result = -1;
+        err = -1;
 
     if (0 != test_raise_it())
-        result = -1;
+        err = -1;
 
     if (0 != test_nb_odd_letter())
-        result  = -1;
+        err  = -1;
 
-    return result;
+    return err;
 }

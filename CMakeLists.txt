@@ -15,4 +15,4 @@ add_executable(cBasics
         memory_manager.c
         memory_manager.h
         string_helper.c
-        string_helper.h memory_manager_tests.c memory_manager_tests.h string_helper_tests.c string_helper_tests.h calendar_helper_tests.c calendar_helper_tests.h matrix_helper_tests.c matrix_helper_tests.h)
+        string_helper.h memory_manager_tests.c memory_manager_tests.h string_helper_tests.c string_helper_tests.h calendar_helper_tests.c calendar_helper_tests.h matrix_helper_tests.c matrix_helper_tests.h utils.c utils.h)

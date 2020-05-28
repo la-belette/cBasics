@@ -1,7 +1,10 @@
 #include "matrix_helper_tests.h"
 #include "matrix_helper.h"
 
-int test_matadd() {
+int test_matadd()
+{
+    int err = 0;
+
     int **matA;
     int **matB;
     int **matC;
@@ -16,24 +19,25 @@ int test_matadd() {
             matB[i][j] = i + j;
         }
     }
-
+    
+    matC = matadd(matA, matB, matC);
     printf("matA:\n");
     printMat(matA, MAT_HEIGHT, MAT_WIDTH);
     printf("matB:\n");
     printMat(matB, MAT_HEIGHT, MAT_WIDTH);
-
-    matC = matadd(matA, matB, matC);
     printf("matC = matA + matB:\n");
     printMat(matC, MAT_HEIGHT, MAT_WIDTH);
 
     matfree(matA, MAT_HEIGHT);
     matfree(matB, MAT_HEIGHT);
     matfree(matC, MAT_HEIGHT);
-    return 0;
+    return err;
 }
 
 int test_matsub()
 {
+    int err = 0;
+
     int **matA;
     int **matB;
     int **matC;
@@ -57,11 +61,13 @@ int test_matsub()
     matfree(matB, MAT_HEIGHT);
     matfree(matC, MAT_HEIGHT);
 
-    return 0;
+    return err;
 }
 
 int test_matmul()
 {
+    int err = 0;
+
     int **matD;
     initMat(&matD, MAT_HEIGHT, MAT_COMMON);
     fillMat(&matD, MAT_HEIGHT, MAT_COMMON);
@@ -84,11 +90,13 @@ int test_matmul()
     matfree(matD, MAT_HEIGHT);
     matfree(matE, MAT_COMMON);
     matfree(matR, MAT_HEIGHT);
-    return 0;
+    return err;
 }
 
 int test_matscalmul()
 {
+    int err = 0;
+
     int **matD;
     initMat(&matD, MAT_HEIGHT, MAT_COMMON);
     fillMat(&matD, MAT_HEIGHT, MAT_COMMON);
@@ -111,37 +119,39 @@ int test_matscalmul()
     matfree(matD, MAT_HEIGHT);
     matfree(matE, MAT_COMMON);
     matfree(matR, MAT_HEIGHT);
-    return 0;
+    return err;
 }
 
 int test_matalloc()
 {
+    int err = 0;
+
     int **matT = matalloc(MAT_COMMON, 6);
     printf("Test allocating square matrix filled with constant:\n");
     printMat(matT, MAT_COMMON, MAT_COMMON);
 
     matfree(matT, MAT_COMMON);
-    return 0;
+    return err;
 }
 
 int test_matrix_helper()
 {
-    int result = 0;
+    int err = 0;
 
     if (0 != test_matadd())
-        result = -1;
+        err = -1;
 
     if (0 != test_matsub())
-        result = -1;
+        err = -1;
 
     if (0 != test_matmul())
-        result = -1;
+        err = -1;
 
     if (0 != test_matscalmul())
-        result = -1;
+        err = -1;
 
     if (0 != test_matalloc())
-        result = -1;
+        err = -1;
 
-    return result;
+    return err;
 }

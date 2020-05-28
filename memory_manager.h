@@ -60,4 +60,13 @@ void *my_memset(void *s, int c, size_t n);
  */
 void *my_memcpy(void* dest, const void *src, size_t n);
 
+/*
+ * memcmp compares n bytes from memory area a with memory area b.
+ * @param a: pointer to memory area to compare with b
+ * @param b: pointer to memory area to compare with a
+ * @param n: number of bytes to compare between a and b
+ * @return return 0 if equal, else -1
+ */
+int memcmp(const void* a, const void *b, size_t n);
+
 #endif //CBASICS_MEMORY_MANAGER_H

@@ -79,3 +79,20 @@ void *my_memcpy(void* dest, const void *src, size_t n)
     }
     return dest;
 }
+
+int memcmp(const void* a, const void *b, size_t n)
+{
+    int result = 0;
+
+    if((a == NULL) || (b == NULL))
+        return -1;
+
+    uint8_t *refa = a;
+    uint8_t *refb = b;
+    for (int byte = 0; byte < n; byte++)
+    {
+        if(refa[byte] != refb[byte])
+            result = -1;
+    }
+    return result;
+}
