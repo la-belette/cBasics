@@ -105,3 +105,33 @@ void *my_memmove(void *dest, const void *src, size_t n)
     free(temp);
     return dest;
 }
+
+void my_memdump(const void *s, size_t n)
+{
+    uint8_t *ref = s;
+    for (int line = 0; line < n/16; line++)
+    {
+        int offset = line*16;
+        for (int byte = 0; byte < 7; byte ++)
+        {
+            printf("%2x ", ref[offset+byte]);
+        }
+        printf(" ");
+        for (int byte = 8; byte < 15; byte ++)
+        {
+            printf("%2x ", ref[offset+byte]);
+        }
+        printf(" |");
+        for (int byte = 0; byte < 15; byte ++)
+        {
+            if (((ref[offset+byte] >= 'A')
+              && (ref[offset+byte] <= 'Z'))
+             || ((ref[offset+byte] >= 'a')
+              && (ref[offset+byte] <= 'z')))
+                printf("%c", ref[offset+byte]);
+            else
+                printf(".");
+        }
+        printf("|$\n");
+    }
+}

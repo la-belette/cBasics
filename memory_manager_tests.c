@@ -253,6 +253,16 @@ int test_my_memmove()
     return err;
 }
 
+int test_my_memdump()
+{
+    int err = 0;
+
+    char *buf = "chiche";
+    my_memdump(buf, 60);
+
+    return err;
+}
+
 int test_memory_management()
 {
     int err = 0;
@@ -264,6 +274,7 @@ int test_memory_management()
     err += test_my_memset();
     err += test_my_memcpy();
     err += test_my_memmove();
+    err += test_my_memdump();
 
     return err;
 }

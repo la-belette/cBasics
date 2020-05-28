@@ -82,4 +82,11 @@ int memcmp(const void* a, const void *b, size_t n);
  */
 void *my_memmove(void *dest, const void *src, size_t n);
 
+/*
+ * memdump prints the n first bytes of  memory area starting at s
+ * @param s: pointer to memory to print
+ * @param n: size of memory area to print in bytes
+ */
+void my_memdump(const void *s, size_t n);
+
 #endif //CBASICS_MEMORY_MANAGER_H
