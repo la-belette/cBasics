@@ -94,10 +94,36 @@ char* my_strncpy(char *dest, const char *src, size_t n);
 int my_strcmp(const char *s1, const char* s2);
 
 /*
+ * my_strncmp compares n first bytes of strings s1 and s2.
+ * @param s1: string to compare with s2
+ * @param s2: string to compare with s1
+ * @param n: maximum size of string to compare
+ * @return 0 if s1 contains the same string as s2,
+ * -1 if s1 is < s2,
+ * 1 id s1 > s2
+ */
+int my_strncmp(const char *s1, const char* s2, size_t n);
+
+/*
  * my_strdup gives a duplicate of s.
  * @param s: the reference string to duplicate
  * @return a pointer to the duplicate
  */
 char *my_strdup(const char *s);
+
+/*
+ * my_atoi converts a string to an integer
+ * @param nptr: pointer to string to convert
+ * @return the integer value of nptr
+ */
+int my_atoi(const char *nptr);
+
+/*
+ * my_itoa converts an integer into a character array.
+ * @param n: integer to convert
+ * @param s: pointer to buffer for converted integer
+ * @return a pointer to s
+ */
+char *my_itoa(int n, char *s);
 
 #endif //CBASICS_STRING_HELPER_H

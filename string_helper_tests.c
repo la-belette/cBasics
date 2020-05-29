@@ -266,6 +266,34 @@ int test_my_strcmp()
     return err;
 }
 
+int test_my_strncmp()
+{
+    int err = 0;
+    char *input1 = "Wilgardium";
+    char *input2 = "Wilgardiu";
+    int expected_result = 'm';
+    int result = my_strncmp(input1, input2, 10);
+    if (expected_result != result)
+    {
+        printf("fail in %s: comparison result %d instead of expected %d.\n",
+               __func__,
+               result,
+               expected_result);
+        err = -1;
+    }
+    expected_result = 0;
+    result = my_strncmp(input1, input2, 9);
+    if (expected_result != result)
+    {
+        printf("fail in %s: comparison result %d instead of expected %d.\n",
+               __func__,
+               result,
+               expected_result);
+        err = -1;
+    }
+    return err;
+}
+
 int test_my_strdup()
 {
     int err = 0;
@@ -284,6 +312,55 @@ int test_my_strdup()
     return 0;
 }
 
+int test_my_atoi()
+{
+    int err = 0;
+    char *input = "-12 3";
+    int expected_result = -12;
+    int result = my_atoi(input);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion returns %d instead of expected %d.\n",
+                __func__,
+                result,
+                expected_result);
+        err = -1;
+    }
+    char *input2 = "   9578.";
+    expected_result = 9578;
+    result = my_atoi(input2);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion returns %d instead of expected %d.\n",
+               __func__,
+               result,
+               expected_result);
+        err = -1;
+    }
+    return err;
+}
+
+int test_my_itoa()
+{
+    int err = 0;
+
+    int MAX_INT_SIZE = 10;
+    int input = -2578;
+    char *expected_result = "-2578";
+    char *result = calloc(10, sizeof(char));
+    result = my_itoa(input, result);
+    if (0 != my_strcmp(result, expected_result))
+    {
+        printf ("fail in %s: number converted is %s instead of expected %s.\n",
+                __func__,
+                result,
+                expected_result);
+        err = -1;
+    }
+
+    return err;
+}
+
 int test_string_helper()
 {
     int err = 0;
@@ -297,8 +374,11 @@ int test_string_helper()
     err += test_my_strcpy();
     err += test_my_strncpy();
     err += test_my_strcmp();
+    err += test_my_strncmp();
     err += test_my_strdup();
     err += test_nb_odd_letter();
+    err += test_my_atoi();
+    err += test_my_itoa();
 
     return err;
 }
