@@ -27,12 +27,21 @@ int is_palindrome(const char *s);
 int is_palindrome_permutation(const char *s);
 
 /*
- * reverses a character array starting with original last character
+ * reverse reverses a character array starting with original last character
  * as first resulting one.
  * @param s: target character array to reverse
  * @return the reversed character array
  */
 char *reverse(char *s);
+
+/*
+ * nreverse reverses n first characters of a character array starting
+ * with original n character as first resulting one.
+ * @param s: target character array to reverse
+ * @param n: size to reverse
+ * @return the reversed character array
+ */
+char *nreverse(char *s, size_t n);
 
 /*
  * raise_it raises the letters of given character array to capital.
@@ -119,11 +128,28 @@ char *my_strdup(const char *s);
 int my_atoi(const char *nptr);
 
 /*
+ * my_atoi converts a string to an integer in the given base
+ * @param nptr: pointer to string to convert
+ * @param base: all caracters of base in increasing order
+ * @return the integer value of nptr
+ */
+int my_atoi_base(const char *nptr, const char *base);
+
+/*
  * my_itoa converts an integer into a character array.
  * @param n: integer to convert
  * @param s: pointer to buffer for converted integer
  * @return a pointer to s
  */
 char *my_itoa(int n, char *s);
+
+/*
+ * my_itoa converts an integer into a character array  in the given
+ * base.
+ * @param n: integer to convert
+ * @param s: pointer to buffer for converted integer
+ * @return a pointer to s
+ */
+char *my_itoa_base(int n, char *s, const char* base);
 
 #endif //CBASICS_STRING_HELPER_H

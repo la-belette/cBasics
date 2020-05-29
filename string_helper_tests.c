@@ -337,6 +337,92 @@ int test_my_atoi()
                expected_result);
         err = -1;
     }
+    char *input3 = "+6,5";
+    expected_result = 6;
+    result = my_atoi(input3);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion returns %d instead of expected %d.\n",
+               __func__,
+               result,
+               expected_result);
+        err = -1;
+    }
+    return err;
+}
+
+int test_my_atoi_base()
+{
+    int err = 0;
+    char *input = "ff";
+    char *hexa_base = "0123456789abcdef";
+    int expected_result = 255;
+    int result = my_atoi_base(input, hexa_base);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion of %s in base %s returns %d instead of expected %d.\n",
+               __func__,
+               input,
+               hexa_base,
+               result,
+               expected_result);
+        err = -1;
+    }
+    char *input2 = "   -ff";
+    expected_result = -255;
+    result = my_atoi_base(input2, hexa_base);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion of %s in base %s returns %d instead of expected %d.\n",
+               __func__,
+               input2,
+               hexa_base,
+               result,
+               expected_result);
+        err = -1;
+    }
+    char *input3 = "77";
+    char *octal_base = "01234567";
+    expected_result = 63;
+    result = my_atoi_base(input3, octal_base);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion of %s in base %s returns %d instead of expected %d.\n",
+               __func__,
+               input3,
+               octal_base,
+               result,
+               expected_result);
+        err = -1;
+    }
+    char *input4 = "+WQWW";
+    char *random_base = "QW";
+    expected_result = 11;
+    result = my_atoi_base(input4, random_base);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion of %s in base %s returns %d instead of expected %d.\n",
+               __func__,
+               input4,
+               random_base,
+               result,
+               expected_result);
+        err = -1;
+    }
+    char *input5 = "021!";
+    char *four_base = "0123";
+    expected_result = 0;
+    result = my_atoi_base(input5, four_base);
+    if (expected_result != result)
+    {
+        printf("fail in %s: integer conversion of %s in base %s returns %d instead of expected %d.\n",
+               __func__,
+               input5,
+               four_base,
+               result,
+               expected_result);
+        err = -1;
+    }
     return err;
 }
 
@@ -355,6 +441,94 @@ int test_my_itoa()
                 __func__,
                 result,
                 expected_result);
+        err = -1;
+    }
+    input = 3;
+    char *expected_result2 = "3";
+    result = my_itoa(input, result);
+    if (0 != my_strcmp(result, expected_result2))
+    {
+        printf ("fail in %s: number converted is %s instead of expected %s.\n",
+                __func__,
+                result,
+                expected_result2);
+        err = -1;
+    }
+
+    return err;
+}
+
+int test_my_itoa_base()
+{
+    int err = 0;
+    char *expected_result = "ff";
+    char *hexa_base = "0123456789abcdef";
+    int input = 255;
+    char *result = malloc(100);
+    result = my_itoa_base(input, result, hexa_base);
+    if (0 != test_my_strcmp(expected_result, result))
+    {
+        printf("fail in %s: ascii conversion of %d in base %s returns %s instead of expected %s.\n",
+               __func__,
+               input,
+               hexa_base,
+               result,
+               expected_result);
+        err = -1;
+    }
+    char *expected_result2 = "-ff";
+    input = -255;
+    result = my_itoa_base(input, result, hexa_base);
+    if (0 != my_strcmp(expected_result2, result))
+    {
+        printf("fail in %s: ascii conversion of %d in base %s returns %s instead of expected %s.\n",
+               __func__,
+               input,
+               hexa_base,
+               result,
+               expected_result2);
+        err = -1;
+    }
+    char *expected_result3 = "77";
+    char *octal_base = "01234567";
+    input = 63;
+    result = my_itoa_base(input, result, octal_base);
+    if (0 != my_strcmp(expected_result3, result))
+    {
+        printf("fail in %s: ascii conversion of %d in base %s returns %s instead of expected %s.\n",
+               __func__,
+               input,
+               octal_base,
+               result,
+               expected_result3);
+        err = -1;
+    }
+    char *expected_result4 = "WQWW";
+    char *random_base = "QW";
+    input = 11;
+    result = my_itoa_base(input, result, random_base);
+    if (0 != my_strcmp(expected_result4, result))
+    {
+        printf("fail in %s: ascii conversion of %d in base %s returns %s instead of expected %s.\n",
+               __func__,
+               input,
+               random_base,
+               result,
+               expected_result4);
+        err = -1;
+    }
+    char *expected_result5 = "201";
+    char *four_base = "0123";
+    input = 33;
+    result = my_itoa_base(input, result, four_base);
+    if (0 != strcmp(expected_result5, result))
+    {
+        printf("fail in %s: ascii conversion of %d in base %s returns %s instead of expected %s.\n",
+               __func__,
+               input,
+               four_base,
+               result,
+               expected_result5);
         err = -1;
     }
 
@@ -378,7 +552,9 @@ int test_string_helper()
     err += test_my_strdup();
     err += test_nb_odd_letter();
     err += test_my_atoi();
+    err += test_my_atoi_base();
     err += test_my_itoa();
+    err += test_my_itoa_base();
 
     return err;
 }

@@ -89,6 +89,17 @@ char *reverse(char *s)
     return result;
 }
 
+char *nreverse(char *s, size_t n)
+{
+    char *result = (char*)malloc(30* sizeof(char));
+    for (int i = 0; i < n; i++)
+    {
+        result[i] = *(s + n - i - 1);
+    }
+    result[n] = '\0';
+    return result;
+}
+
 int raise_it(char *s)
 {
     size_t charLength = my_strlen(s);
@@ -275,6 +286,54 @@ int my_atoi(const char *nptr)
     return result;
 }
 
+int get_index(const char character, const char *array)
+{
+    int size = my_strlen(array);
+    for (int element = 0; element < size; element++)
+    {
+        if (character == array[element])
+            return element;
+    }
+    return -1;
+}
+
+int my_atoi_base(const char *nptr, const char *base)
+{
+    int index = 0;
+    bool negative = false;
+    int result = 0;
+    int base_index = 0;
+
+    int base_size = my_strlen(base);
+    int n_size = my_strlen(nptr);
+
+    while (nptr[index] == ' ')
+    {
+        index++;
+    }
+
+    if (nptr[index] == '-')
+    {
+        negative = true;
+        index++;
+    }
+    else if (nptr[index] == '+')
+        index++;
+
+    while (index < n_size)
+    {
+        base_index = get_index(nptr[index], base);
+        if(base_index < 0)
+            return 0;
+        result = result*base_size + base_index;
+        index++;
+    }
+    if (negative)
+        result = -result;
+
+    return result;
+}
+
 int euclid_division(int dividend, int divisor, int* rest)
 {
     int result = dividend / divisor;
@@ -284,24 +343,61 @@ int euclid_division(int dividend, int divisor, int* rest)
 
 char *my_itoa(int n, char *s)
 {
-    static int index = 0;
-    if (n < 0)
+    bool negative = false;
+    int index = 0;
+    int ref = n;
+    if (ref < 0)
     {
+        negative = true;
+        ref = -ref;
+    }
+
+    while (ref >= 9)
+    {
+        s[index] = ref%10 + '0';
+        ref /= 10;
+        index++;
+    }
+    s[index] = ref + '0';
+    if(negative)
+    {
+        index++;
         s[index] = '-';
-        index++;
-        s = my_itoa(-n, s);
     }
-    else if (n > 9)
+    index++;
+    s = nreverse(s, index);
+    s[index] = 0;
+    return s;
+}
+
+char *my_itoa_base(int n, char *s, const char* base)
+{
+    bool negative = false;
+    int index = 0;
+    int ref = n;
+    int base_size = my_strlen(base);
+    if (ref < 0)
     {
-        int rest = 0;
-        s = my_itoa(euclid_division(n, 10, &rest), s);
-        index++;
-        s = my_itoa(rest, s);
+        negative = true;
+        ref = -n;
     }
-    else
+
+    while (ref >= base_size)
     {
-        s[index] = n + '0';
+        s[index] = base[ref%base_size];
+        index++;
+        ref /= base_size;
     }
+    s[index] = base[ref];
+
+    if(negative)
+    {
+        index++;
+        s[index] = '-';
+    }
+    index++;
+    s = nreverse(s, index);
+    s[index] = 0;
 
     return s;
 }
