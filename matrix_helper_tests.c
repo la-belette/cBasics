@@ -28,6 +28,7 @@ int test_matadd()
     printf("matC = matA + matB:\n");
     printMat(matC, MAT_HEIGHT, MAT_WIDTH);
 
+    //TODO automize test verification
     matfree(matA, MAT_HEIGHT);
     matfree(matB, MAT_HEIGHT);
     matfree(matC, MAT_HEIGHT);
@@ -57,10 +58,10 @@ int test_matsub()
     printf("matC = matB - matA:\n");
     printMat(matC, MAT_HEIGHT, MAT_WIDTH);
 
+    //TODO automize test verification
     matfree(matA, MAT_HEIGHT);
     matfree(matB, MAT_HEIGHT);
     matfree(matC, MAT_HEIGHT);
-
     return err;
 }
 
@@ -87,6 +88,7 @@ int test_matmul()
     printf("matR = matD * matE:\n");
     printMat(matR, MAT_HEIGHT, MAT_WIDTH);
 
+    //TODO automize test verification
     matfree(matD, MAT_HEIGHT);
     matfree(matE, MAT_COMMON);
     matfree(matR, MAT_HEIGHT);
@@ -116,6 +118,7 @@ int test_matscalmul()
     printf("matD * 2:\n");
     printMat(matR, MAT_HEIGHT, MAT_COMMON);
 
+    //TODO automize test verification
     matfree(matD, MAT_HEIGHT);
     matfree(matE, MAT_COMMON);
     matfree(matR, MAT_HEIGHT);
@@ -130,6 +133,7 @@ int test_matalloc()
     printf("Test allocating square matrix filled with constant:\n");
     printMat(matT, MAT_COMMON, MAT_COMMON);
 
+    //TODO automize test verification
     matfree(matT, MAT_COMMON);
     return err;
 }

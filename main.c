@@ -3,11 +3,13 @@
 #include "matrix_helper_tests.h"
 #include "memory_manager_tests.h"
 #include "calendar_helper_tests.h"
+#include "array_helper_tests.h"
 
 #define STRING_TEST
 #define MATRIX_TEST
 #define MEMORY_MGT_TEST
 #define CALENDAR_TEST
+#define ARRAY_TEST
 
 int main(void)
 {
@@ -50,6 +52,17 @@ int main(void)
     printf("*******************************************************\n\n");
 
     if (0 == test_memory_management())
+        printf("success\n");
+    else
+        printf("fail\n");
+#endif
+
+#ifdef ARRAY_TEST
+    printf("\n*******************************************************\n");
+    printf("                       ARRAY TEST                      \n");
+    printf("*******************************************************\n\n");
+
+    if (0 == test_array())
         printf("success\n");
     else
         printf("fail\n");
