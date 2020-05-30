@@ -1,7 +1,7 @@
 #include "memory_manager_tests.h"
 #include "memory_manager.h"
 #include "string_helper.h"
-#include "utils.h"
+#include "array_helper.h"
 #include "common.h"
 
 #include <string.h>
@@ -100,9 +100,9 @@ int test_my_realloc()
     if (0 != memcmp(largerArray, expected_largeArray, 10))
     {
         printf("fail in %s: larger array holds: ", __func__);
-        print_int_array(largerArray, 10);
+        array_print(largerArray, 10);
         printf("instead of expected:\n");
-        print_int_array(expected_largeArray, 10);
+        array_print(expected_largeArray, 10);
         err = -1;
     }
 
@@ -111,9 +111,9 @@ int test_my_realloc()
     if (0 != memcmp(smallerArray, expected_smallArray, 10))
     {
         printf("fail in %s: smaller array holds: ", __func__);
-        print_int_array(smallerArray, 10);
+        array_print(smallerArray, 10);
         printf(" instead of expected ");
-        print_int_array(expected_smallArray, 10);
+        array_print(expected_smallArray, 10);
         err = -1;
     }
 
@@ -141,9 +141,9 @@ int test_my_memset()
     if (0 != memcmp(ref, ones, 28))
     {
         printf("fail in %s: ones is\n", __func__);
-        print_int_array(ref, ref_size);
+        array_print(ref, ref_size);
         printf("instead of expected\n");
-        print_int_array(ones, 7);
+        array_print(ones, 7);
         err = -1;
     }
 
@@ -158,9 +158,9 @@ int test_my_memset()
     if (0 != memcmp(smallerArray, smallref, 20))
     {
         printf("fail in %s: zeros\n", __func__);
-        print_int_array(smallerArray, 5);
+        array_print(smallerArray, 5);
         printf("instead of expected\n");
-        print_int_array(smallref, 5);
+        array_print(smallref, 5);
         err = -1;
     }
 
@@ -184,9 +184,9 @@ int test_my_memcpy()
     if (0 != memcmp(arrayCopy, ref, ref_size* sizeof(int)))
     {
         printf("fail in %s: copy\n", __func__);
-        print_int_array(arrayCopy, ref_size);
+        array_print(arrayCopy, ref_size);
         printf("instead of expected\n");
-        print_int_array(ref, ref_size);
+        array_print(ref, ref_size);
         err = -1;
     }
 
@@ -196,9 +196,9 @@ int test_my_memcpy()
     if (0 != memcmp(arrayCopy, smallref, 20))
     {
         printf("fail in %s: smaller copy\n", __func__);
-        print_int_array(arrayCopy, 5);
+        array_print(arrayCopy, 5);
         printf("instead of expected\n");
-        print_int_array(smallref, 5);
+        array_print(smallref, 5);
         err = -1;
     }
 
@@ -245,9 +245,9 @@ int test_my_memmove()
     if (0 != memcmp(array, ref, array_size* sizeof(int)))
     {
         printf("fail in %s:\n", __func__);
-        print_int_array(array, array_size);
+        array_print(array, array_size);
         printf("instead of expected \n");
-        print_int_array(ref, array_size);
+        array_print(ref, array_size);
         err = -1;
     }
     return err;
@@ -260,6 +260,7 @@ int test_my_memdump()
     char *buf = "chiche";
     my_memdump(buf, 60);
 
+    //TODO automize test verification
     return err;
 }
 
