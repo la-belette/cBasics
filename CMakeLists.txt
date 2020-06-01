@@ -27,4 +27,8 @@ add_executable(cBasics
         array_helper.c
         array_helper.h
         array_helper_tests.c
-        array_helper_tests.h)
+        array_helper_tests.h
+        bit_operation_helper.c
+        bit_operation_helper.h
+        bit_operations_tests.c
+        bit_operations_tests.h)

@@ -4,12 +4,14 @@
 #include "memory_manager_tests.h"
 #include "calendar_helper_tests.h"
 #include "array_helper_tests.h"
+#include "bit_operations_tests.h"
 
-#define STRING_TEST
-#define MATRIX_TEST
-#define MEMORY_MGT_TEST
-#define CALENDAR_TEST
-#define ARRAY_TEST
+//#define STRING_TEST
+//#define MATRIX_TEST
+//#define MEMORY_MGT_TEST
+//#define CALENDAR_TEST
+//#define ARRAY_TEST
+#define BIT_TEST
 
 int main(void)
 {
@@ -67,6 +69,18 @@ int main(void)
     else
         printf("fail\n");
 #endif
+
+#ifdef BIT_TEST
+    printf("\n*******************************************************\n");
+    printf("                        BIT TEST                       \n");
+    printf("*******************************************************\n\n");
+
+    if (0 == test_bit_operations())
+        printf("success\n");
+    else
+        printf("fail\n");
+#endif
+
 
     return (0);
 }
