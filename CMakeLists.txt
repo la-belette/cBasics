@@ -31,4 +31,4 @@ add_executable(cBasics
         bit_operation_helper.c
         bit_operation_helper.h
         bit_operations_tests.c
-        bit_operations_tests.h)
+        bit_operations_tests.h list_helper.c list_helper.h list_helper_tests.c list_helper_tests.h)
