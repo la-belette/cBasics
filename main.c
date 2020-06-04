@@ -6,6 +6,7 @@
 #include "array_helper_tests.h"
 #include "bit_operations_tests.h"
 #include "list_helper_tests.h"
+#include "thread.h"
 
 //#define STRING_TEST
 //#define MATRIX_TEST
@@ -14,6 +15,7 @@
 //#define ARRAY_TEST
 #define BIT_TEST
 #define LIST_TEST
+#define THREAD_TEST
 
 int main(void)
 {
@@ -89,6 +91,17 @@ int main(void)
     printf("*******************************************************\n\n");
 
     if (0 == test_list_helper())
+        printf("success\n");
+    else
+        printf("fail\n");
+#endif
+
+#ifdef THREAD_TEST
+    printf("\n*******************************************************\n");
+    printf("                      THREAD TEST                      \n");
+    printf("*******************************************************\n\n");
+
+    if (0 == threads_handler())
         printf("success\n");
     else
         printf("fail\n");
