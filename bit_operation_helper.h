@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+void char_array_print(unsigned char *array, size_t size);
+
 /*
  * rol rotates value roll bit(s) to the left.
  * @param value: target value to shift

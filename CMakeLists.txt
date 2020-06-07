@@ -37,4 +37,6 @@ add_executable(cBasics
         list_helper_tests.c
         list_helper_tests.h
         thread.c
-        thread.h)
+        thread.h
+        crypting_interface.c
+        crypting_interface.h)

@@ -103,15 +103,6 @@ int test_ror()
     return 0;
 }
 
-void char_array_print(unsigned char *array, size_t size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d\t", array[i]);
-    }
-    printf("\n");
-}
-
 int test_xor_crypt()
 {
     int err = 0;

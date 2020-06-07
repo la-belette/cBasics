@@ -1,5 +1,14 @@
 #include "bit_operation_helper.h"
 
+void char_array_print(unsigned char *array, size_t size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d\t", array[i]);
+    }
+    printf("\n");
+}
+
 unsigned char rol(unsigned char value, unsigned int roll)
 {
     uint8_t rotation_size = roll%8;

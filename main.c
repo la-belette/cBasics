@@ -7,17 +7,20 @@
 #include "bit_operations_tests.h"
 #include "list_helper_tests.h"
 #include "thread.h"
+#include "crypting_interface.h"
+#include "bit_operation_helper.h"
+#include "string_helper.h"
 
 //#define STRING_TEST
 //#define MATRIX_TEST
 //#define MEMORY_MGT_TEST
 //#define CALENDAR_TEST
 //#define ARRAY_TEST
-#define BIT_TEST
-#define LIST_TEST
-#define THREAD_TEST
+//#define BIT_TEST
+//#define LIST_TEST
+//#define THREAD_TEST
 
-int main(void)
+int main(int argc, char* argv[])
 {
 #ifdef STRING_TEST
     printf("\n*******************************************************\n");
@@ -106,6 +109,62 @@ int main(void)
     else
         printf("fail\n");
 #endif
+
+    if (argc == 5)
+    {
+        s_crypto_interface crypto_itf_rot;
+        crypto_itf_rot.encrypt = my_rol_crypt;
+        crypto_itf_rot.decrypt = my_ror_crypt;
+
+        s_crypto_interface crypto_itf_xor;
+        crypto_itf_xor.encrypt = my_xor_crypt;
+        crypto_itf_xor.decrypt = my_xor_crypt;
+
+        s_crypto_interface* generic_crypto_itf = malloc(sizeof(s_crypto_interface));
+
+        char *crypting_type = malloc(30);
+        crypting_type = my_strcpy(crypting_type, argv[1]);
+        char *operation_type = malloc(30);
+        operation_type = my_strcpy(operation_type, argv[2]);
+        char *message = malloc(30);
+        message = my_strcpy(message, argv[3]);
+        char *key = malloc(30);
+        key = my_strcpy(key, argv[4]);
+
+        if (0 == my_strcmp(crypting_type, "x"))
+        {
+            generic_crypto_itf = &crypto_itf_xor;
+        }
+        else if (0 == my_strcmp(crypting_type, "r"))
+        {
+            generic_crypto_itf = &crypto_itf_rot;
+        }
+        else
+        {
+            printf("Unidentified crypting type.\n");
+            return -1;
+        }
+
+        if (0 == my_strcmp(argv[2], "encrypt"))
+        {
+            printf("Original message: %s.\n", message);
+            generic_crypto_itf->encrypt(message, my_strlen(argv[3]), key, my_strlen(argv[4]));
+            printf("Encrypted message: ");
+            char_array_print(message,  my_strlen(argv[3]));
+        }
+        else if (0 == my_strcmp(argv[2], "decrypt"))
+        {
+            printf("Original message: ", message);
+            char_array_print(message,  my_strlen(argv[3]));
+            generic_crypto_itf->decrypt(message, my_strlen(argv[3]), key, my_strlen(argv[4]));
+            printf("Decrypted message: %s.\n", message);
+        }
+        else
+        {
+            printf("Unidentified first argument.\n");
+            return -1;
+        }
+    }
 
     return (0);
 }
