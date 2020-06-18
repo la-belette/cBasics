@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
         printf("fail\n");
 #endif
 
-    if (argc == 5)
+    if (argc >= 5)
     {
         s_crypto_interface crypto_itf_rot;
         crypto_itf_rot.encrypt = my_rol_crypt;
@@ -123,19 +123,19 @@ int main(int argc, char* argv[])
         s_crypto_interface* generic_crypto_itf = malloc(sizeof(s_crypto_interface));
 
         char *crypting_type = malloc(30);
-        crypting_type = my_strcpy(crypting_type, argv[1]);
-        char *operation_type = malloc(30);
-        operation_type = my_strcpy(operation_type, argv[2]);
         char *message = malloc(30);
-        message = my_strcpy(message, argv[3]);
         char *key = malloc(30);
-        key = my_strcpy(key, argv[4]);
+        int key_length;
+
+        crypting_type = my_strcpy(crypting_type, argv[1]);
+        key = my_strcpy(key, argv[2]);
+        key_length = my_strlen(argv[2]);
 
         if (0 == my_strcmp(crypting_type, "x"))
         {
             generic_crypto_itf = &crypto_itf_xor;
         }
-        else if (0 == my_strcmp(crypting_type, "r"))
+        else if (0 == my_strcmp(crypting_type, "r") )
         {
             generic_crypto_itf = &crypto_itf_rot;
         }
@@ -145,26 +145,19 @@ int main(int argc, char* argv[])
             return -1;
         }
 
-        if (0 == my_strcmp(argv[2], "encrypt"))
+        for (int arg = 3; arg < argc; arg++)
         {
+            message = my_strcpy(message, argv[arg]);
             printf("Original message: %s.\n", message);
-            generic_crypto_itf->encrypt(message, my_strlen(argv[3]), key, my_strlen(argv[4]));
+            generic_crypto_itf->encrypt(message, my_strlen(message), key, key_length);
             printf("Encrypted message: ");
-            char_array_print(message,  my_strlen(argv[3]));
+            char_array_print(message,  my_strlen(message));
         }
-        else if (0 == my_strcmp(argv[2], "decrypt"))
-        {
-            printf("Original message: ", message);
-            char_array_print(message,  my_strlen(argv[3]));
-            generic_crypto_itf->decrypt(message, my_strlen(argv[3]), key, my_strlen(argv[4]));
-            printf("Decrypted message: %s.\n", message);
-        }
-        else
-        {
-            printf("Unidentified first argument.\n");
-            return -1;
-        }
-    }
 
+        free(crypting_type);
+        free(message);
+        free(key);
+
+    }
     return (0);
 }

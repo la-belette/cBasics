@@ -39,4 +39,6 @@ add_executable(cBasics
         thread.c
         thread.h
         crypting_interface.c
-        crypting_interface.h)
+        crypting_interface.h
+        command_parser.c
+        command_parser.h)
