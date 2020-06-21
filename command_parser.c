@@ -18,6 +18,7 @@ static const struct option
 char* key = NULL;
 size_t key_size = 0;
 int crypting_type = 0;
+optind = 1;
 
 void xor_module_handler (char* new_key)
 {
@@ -50,8 +51,9 @@ void rot_module_handler (char* new_key)
 int opt_request_arg(char opt, char *optstring)
 {
     if (NULL == optstring)
-        return -1;
-    for (int i = 0; i < sizeof(optstring); i ++)
+        return -2;
+
+    for (int i = 0; i < my_strlen(optstring); i++)
     {
         if (opt == optstring[i])
         {
@@ -64,49 +66,51 @@ int opt_request_arg(char opt, char *optstring)
     return -1;
 }
 
-int get_opt(int argc, char * const argv[], char * const optstring)
+int get_opt(int argc, char * const argv[], char * const optstring, char **arg_buff)
 {
-    static int nextchar = 0;
-    int current_char = 0;
+    static int next_char = 0;
 
-    if (nextchar >= argc)
+    if (next_char >= sizeof(argv[optind]))
         return  -1;
 
     if ((0 == my_strcmp("-", argv[optind])) || (0 == my_strcmp("--", argv[optind])))
     {
         optind++;
-        return get_opt(argc, argv, optstring);
+        return get_opt(argc, argv, optstring, &arg_buff);
     }
 
-    if (0 == nextchar)
+    char current_char = argv[optind][next_char];
+    if ('-' == current_char)
     {
-        nextchar++;
+        next_char++;
+    }
+    else
+    {
+        return -1;
     }
 
-    if (nextchar < sizeof(argv[optind]))
+    current_char =  argv[optind][next_char];
+    next_char++;
+    if (next_char >= my_strlen(argv[optind]))
     {
-        current_char =  argv[optind][nextchar];
-        nextchar++;
-        if (nextchar >= sizeof(argv[optind]))
-        {
-            nextchar = 0;
-            optind++;
-        }
-    }
-/*
-    if (1 == opt_request_arg(current_char, optstring))
-    {
-        optind++;
-
-        if (NULL == opt_arg)
-            opt_arg = malloc(sizeof(argv[optind]));
-        else
-            opt_arg = realloc(opt_arg, sizeof(argv[optind]));
-
-        opt_arg = my_strcpy(opt_arg, argv[optind]);
-
+        next_char = 0;
         optind++;
     }
-    */
+
+    switch (opt_request_arg(current_char, optstring))
+    {
+        case 1:
+            *arg_buff = &argv[optind][next_char];
+            break;
+        case -1:
+            printf("char not in option list.\n");
+            break;
+        case -2:
+            printf("option list is empty.\n");
+            break;
+        default:
+            break;
+    }
+
     return current_char;
 }

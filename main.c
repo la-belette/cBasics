@@ -10,6 +10,7 @@
 #include "crypting_interface.h"
 #include "bit_operation_helper.h"
 #include "string_helper.h"
+#include "command_parser.h"
 
 //#define STRING_TEST
 //#define MATRIX_TEST
@@ -124,40 +125,42 @@ int main(int argc, char* argv[])
 
         char *crypting_type = malloc(30);
         char *message = malloc(30);
-        char *key = malloc(30);
-        int key_length;
+        char *arg_buff = malloc(30);
 
-        crypting_type = my_strcpy(crypting_type, argv[1]);
-        key = my_strcpy(key, argv[2]);
-        key_length = my_strlen(argv[2]);
+        int opt;
+        if ((opt = get_opt(argc, argv, "x:r:", &arg_buff)) != -1)
+        {
+            switch (opt)
+            {
+                case 'x':
+                    generic_crypto_itf = &crypto_itf_xor;
+                    break;
+                case 'r':
+                    generic_crypto_itf = &crypto_itf_rot;
+                    break;
+                default:
+                    printf("option character undefined.\n");
+                    return -1;
+            }
 
-        if (0 == my_strcmp(crypting_type, "x"))
-        {
-            generic_crypto_itf = &crypto_itf_xor;
-        }
-        else if (0 == my_strcmp(crypting_type, "r") )
-        {
-            generic_crypto_itf = &crypto_itf_rot;
-        }
-        else
-        {
-            printf("Unidentified crypting type.\n");
-            return -1;
-        }
-
-        for (int arg = 3; arg < argc; arg++)
-        {
-            message = my_strcpy(message, argv[arg]);
-            printf("Original message: %s.\n", message);
-            generic_crypto_itf->encrypt(message, my_strlen(message), key, key_length);
-            printf("Encrypted message: ");
-            char_array_print(message,  my_strlen(message));
+            optind = 3;
+            while (optind < argc)
+            {
+                message = my_strcpy(message, argv[optind]);
+                printf("Original message: %s.\n", message);
+                int key_len = my_strlen(arg_buff);
+                int data_len = my_strlen(message);
+                generic_crypto_itf->encrypt(message, data_len, arg_buff, key_len);
+                printf("Encrypted message: ");
+                char_array_print(message, data_len);
+                optind++;
+            }
         }
 
         free(crypting_type);
         free(message);
-        free(key);
-
+        free(generic_crypto_itf);
+        free(arg_buff);
     }
     return (0);
 }
