@@ -2,6 +2,7 @@
 #define CBASICS_STRING_HELPER_H
 
 #include "common.h"
+#include <stdbool.h>
 
 /*
  * my_strlen gives the number of character(s) in a character
@@ -151,5 +152,14 @@ char *my_itoa(int n, char *s);
  * @return a pointer to s
  */
 char *my_itoa_base(int n, char *s, const char* base);
+
+/*
+ * start_with indicates if the target string starts with the reference string.
+ * @param target: string to check
+ * @param ref: reference of start to comparer target with
+ * @param length: size of reference
+ * @return true if target starts with ref including 0 length ref false otherwise including null pointing target or ref
+ */
+bool start_with(const char* target, const char*ref, size_t length);
 
 #endif //CBASICS_STRING_HELPER_H

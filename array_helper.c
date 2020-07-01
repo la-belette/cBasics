@@ -153,3 +153,14 @@ void array_fibo(int *array, size_t size, size_t n)
         }
     }
 }
+
+void vector_map(int (*func)(int elem), int *tab, int size)
+{
+    if ((NULL == func) || (NULL == tab) || (0 == size))
+        return;
+
+    for (int i = 0; i < size; i++)
+    {
+        tab[i] = func(tab[i]);
+    }
+}

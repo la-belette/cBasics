@@ -20,6 +20,7 @@
 //#define BIT_TEST
 //#define LIST_TEST
 //#define THREAD_TEST
+#define CRYPTING_TEST
 
 int main(int argc, char* argv[])
 {
@@ -111,7 +112,8 @@ int main(int argc, char* argv[])
         printf("fail\n");
 #endif
 
-    if (argc >= 5)
+#ifdef CRYPTING_TEST
+    if (argc >= 3)
     {
         s_crypto_interface crypto_itf_rot;
         crypto_itf_rot.encrypt = my_rol_crypt;
@@ -162,5 +164,6 @@ int main(int argc, char* argv[])
         free(generic_crypto_itf);
         free(arg_buff);
     }
+#endif
     return (0);
 }

@@ -85,4 +85,9 @@ void array_sort(int *array, size_t size);
  */
 void array_fibo(int *array, size_t size, size_t n);
 
+/*
+ * vector_map applies func to size first elements of tab
+ */
+void vector_map(int (*func)(int elem), int *tab, int size);
+
 #endif //CBASICS_ARRAY_HELPER_H

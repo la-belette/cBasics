@@ -401,3 +401,19 @@ char *my_itoa_base(int n, char *s, const char* base)
 
     return s;
 }
+
+bool start_with(const char* target, const char*ref, size_t length)
+{
+    if (0 == length)
+        return true;
+
+    if ((NULL == target) || (NULL == ref))
+       return false;
+
+    for (int i = 0; i < length; i++)
+    {
+        if (ref[i] != target[i])
+            return false;
+    }
+    return true;
+}

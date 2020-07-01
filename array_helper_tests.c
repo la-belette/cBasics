@@ -301,6 +301,41 @@ int test_array_fibo()
     return err;
 }
 
+int doubling(int target)
+{
+    return target*2;
+}
+
+int test_vector_map()
+{
+    int err = 0;
+    int tab_size = 10;
+    int *tab = malloc(tab_size*sizeof(int));
+
+    for (int i = 0; i < tab_size; i ++)
+    {
+        tab[i] = i;
+    }
+
+    int ref[10] = {0, 2, 4, 6, 8, 10, 12, 14, 16 ,18};
+
+    vector_map(&doubling, tab, tab_size);
+
+    err = memcmp(tab, ref, tab_size* sizeof(int));
+    if (0 != err)
+    {
+        printf("fail in %s:\n",
+               __func__);
+        array_print(tab, tab_size);
+        printf("instead of expected\n");
+        array_print(ref, tab_size);
+        err = -1;
+    }
+
+    free(tab);
+    return err;
+}
+
 int test_array()
 {
      int err = 0;
@@ -314,6 +349,7 @@ int test_array()
      err += test_array_find();
      err += test_array_sort();
      err += test_array_fibo();
+     err += test_vector_map();
 
      return err;
 }
