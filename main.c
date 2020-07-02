@@ -145,13 +145,12 @@ int main(int argc, char* argv[])
                     return -1;
             }
 
-            optind = 3;
             while (optind < argc)
             {
                 message = my_strcpy(message, argv[optind]);
-                printf("Original message: %s.\n", message);
                 int key_len = my_strlen(arg_buff);
                 int data_len = my_strlen(message);
+                printf("Original message: %s.\n", message);
                 generic_crypto_itf->encrypt(message, data_len, arg_buff, key_len);
                 printf("Encrypted message: ");
                 char_array_print(message, data_len);

@@ -66,32 +66,6 @@ int opt_request_arg(char opt, char *optstring)
     return -1;
 }
 
-int str_split(const char *target, const char seperator, char **res)
-{
-    if ((NULL == target) || (NULL == res))
-        return -1;
-    int separator_nb = 0;
-    int target_i = 0;
-    int res_i = 0;
-    while (target[target_i] != '\0')
-    {
-        if (target[target_i] == seperator)
-        {
-
-            res[separator_nb][res_i] = '\0';
-            separator_nb++;
-            res_i = 0;
-        }
-        else
-        {
-            res[separator_nb][res_i] = target[target_i];
-            res_i++;
-        }
-        target_i++;
-    }
-    return separator_nb;
-}
-
 int get_opt(int argc, char * const argv[], char * const optstring, char **arg_buff)
 {
     static int next_char = 0;
@@ -136,7 +110,7 @@ int get_opt(int argc, char * const argv[], char * const optstring, char **arg_bu
             switch (opt_request_arg(current_char, optstring))
             {
                 case 1:
-                        *arg_buff = cmd_split[1];
+                        my_strcpy(*arg_buff, cmd_split[1]);
                     break;
                 case -1:
                     printf("char not in option list.\n");
@@ -149,6 +123,8 @@ int get_opt(int argc, char * const argv[], char * const optstring, char **arg_bu
             }
         }
 
+        optind++;
+        
         free(cmd_split[0]);
         free(cmd_split[1]);
         free(cmd_split);

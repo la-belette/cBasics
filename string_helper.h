@@ -162,4 +162,13 @@ char *my_itoa_base(int n, char *s, const char* base);
  */
 bool start_with(const char* target, const char*ref, size_t length);
 
+/*
+ * str_split splits target on divider into elements in res
+ * @param target: string to divide
+ * @param divider: character separating elements
+ * @param res: array of substring resulting of target division
+ * @return the number of dividors found
+ */
+int str_split(const char *target, const char divider, char **res);
+
 #endif //CBASICS_STRING_HELPER_H

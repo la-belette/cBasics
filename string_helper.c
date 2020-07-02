@@ -417,3 +417,29 @@ bool start_with(const char* target, const char*ref, size_t length)
     }
     return true;
 }
+
+int str_split(const char *target, const char seperator, char **res)
+{
+    if ((NULL == target) || (NULL == res))
+        return -1;
+    int separator_nb = 0;
+    int target_i = 0;
+    int res_i = 0;
+    while (target[target_i] != '\0')
+    {
+        if (target[target_i] == seperator)
+        {
+
+            res[separator_nb][res_i] = '\0';
+            separator_nb++;
+            res_i = 0;
+        }
+        else
+        {
+            res[separator_nb][res_i] = target[target_i];
+            res_i++;
+        }
+        target_i++;
+    }
+    return separator_nb;
+}
